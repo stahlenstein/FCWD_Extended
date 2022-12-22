@@ -1,0 +1,104 @@
+table.TylerTable {
+    width: auto;
+    height: auto;
+    text-align: left;
+    margin-left: 1000px;
+  }
+  
+  table.TylerTable tbody tr {
+    border: px solid #AAAAAA;
+  }
+  
+  table.TylerTable td {
+    padding-right: 7px;
+    padding-bottom: 1.5px;
+  }
+  
+  table.TylerTable tbody td {
+    font-size: 14px;
+    color: #757575;
+    margin-right: 50px;
+  }
+  
+  .InputBox.disabled {
+    fill: #212121;
+    margin-right: 35px;
+    font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    color: #222222;
+    box-sizing: content-box;
+    display: flex;
+    align-items: left;
+    font-size: 12px;
+    min-height: 16px;
+    cursor: default !important;
+    height: 100%;
+    border: 1px solid #CCCCCC;
+    border-radius: 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.075) inset;
+    letter-spacing: normal;
+    word-spacing: 0;
+    transition-delay: 0s, 0s;
+    transition-duration: 0.15s, 0.15s;
+    transition-property: border-color, box-shadow;
+    transition-timing-function: ease-in-out, ease-in-out;
+    text-align: start;
+    text-indent: 0;
+    text-rendering: auto;
+    text-shadow: none;
+    width: 45px;
+    background-color: #eeeeee;
+    outline:none;
+  }
+  
+  #long {
+    width: 85px;
+  }
+  
+  .InputBox {
+    fill: #212121;
+    margin-right: 35px;
+    font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    color: #222222;
+    box-sizing: content-box;
+    padding: 0px 6px 0px 6px;
+    display: flex;
+    align-items: left;
+    min-height: 16px;
+    cursor: default;
+    font-size: 12px;
+    height: 100%;
+    background-color: transparent;
+    border-radius: 0;
+    letter-spacing: normal;
+    word-spacing: 0;
+    transition-delay: 0s, 0s;
+    transition-duration: 0.15s, 0.15s;
+    transition-property: border-color, box-shadow;
+    transition-timing-function: ease-in-out, ease-in-out;
+    text-align: start;
+    text-indent: 0;
+    text-rendering: auto;
+    text-shadow: none;
+    outline: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    flex: 1 1 auto;
+    width: 45px;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    z-index: 2;
+  }
+
+  .InputBox.enabled:focus {
+    border: 1px solid #777777;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.075) inset, 0 0 8px 0 #777777;
+  }
+
