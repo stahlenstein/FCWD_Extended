@@ -2,17 +2,9 @@
 var target = document.querySelector("#w_141 > div > div > div.containerElement.g_GridLayoutEngine");
 var myElement = document.createElement("div");
 
-
-
 // Setting up main HTML injection
 myElement.className = "tylerContainer";
-myElement.innerHTML = `<span style="
-margin-left: 1000px;
-vh: 75px;
-position: absolute;
-bottom: 99px;
-color: #757575;
-">Statistics</span>
+myElement.innerHTML = `<span class="titleText">Statistics</span>
 <table class="TylerTable">
 <tbody>
   <tr>
@@ -48,6 +40,14 @@ color: #757575;
 </tbody>
 </table>
 `;
+
+var insertCondition_target = document.querySelector("#w_116 > div > div");
+var conditionElement = document.createElement("div");
+
+conditionElement.className = "Condition"
+conditionElement.innerHTML = `<div class="notification-light"></div>`;
+
+insertCondition_target.after(conditionElement);
 
 // Injecting custom HTML into desired area of page
 target.after(myElement);
@@ -172,4 +172,3 @@ const config1 = { childList: true };
 
 // Start the observer
 observerSubmit.observe(target0, config1);
-

@@ -13,7 +13,7 @@
     "128": "/images/Munis_Red_128.png"
 },
   "manifest_version": 3,
-  "permissions": ["scripting", "nativeMessaging", "tabs"],
+  "permissions": ["scripting", "nativeMessaging", "tabs", "notifications"],
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {

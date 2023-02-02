@@ -23,13 +23,13 @@ supabase = createClient(SUPABASE_URL, SUPABASE_KEY, options);
 
 console.log("supabase?", supabase);
 
-async function getData(accountNumber, customerNumber) {
+async function getData(accountNumber, customerNumber, serviceCode) {
   // Communicating with content scripts
-  let { data: Reading_Stats, error } = await supabase // Basically stating 'let Reading_Stats = supabase.Reading_Stats...(etc) but more complicated
-    .from("Reading_Stats") // Declaring what table to select
+  let { data: usage_stats, error } = await supabase // Basically stating 'let Reading_Stats = supabase.Reading_Stats...(etc) but more complicated
+    .from("usage_stats") // Declaring what table to select
     .select("*") // Select all but kinda redundant by '.limit('1')'
     .limit("1") // limits called data to only one row/entry
-    .eq("Account", accountNumber).eq("Customer", customerNumber)
+    .eq("ACCOUNT_NO", accountNumber).eq("CID_NO", customerNumber).eq("Service_Code", serviceCode)
 
 
   // Issue Token
@@ -37,10 +37,10 @@ async function getData(accountNumber, customerNumber) {
     console.log("There was an Error:", error);
   }
   // Receive Token
-  if (Reading_Stats) {
-    console.log("Supabase Data Returned:", Reading_Stats);
+  if (usage_stats) {
+    console.log("Supabase Data Returned:", usage_stats);
   }
-  return Reading_Stats
+  return usage_stats
 };
 
 function handleMessage(request, sender, sendResponse) {
@@ -48,25 +48,25 @@ function handleMessage(request, sender, sendResponse) {
   const accountDetails = request.greeting
   const accountNumber = accountDetails[0]
   const customerNumber = accountDetails[1]
-  console.log(accountNumber, customerNumber)
+  const serviceCode = accountDetails[2]
+  console.log(accountNumber, customerNumber, serviceCode)
 
-  var accData = getData(accountNumber, customerNumber)
+  var accData = getData(accountNumber, customerNumber, serviceCode)
   accData.then(value => {
     value;
     if (value.length !== 0) {
-      let primaryKey = Object.entries(value[0])[0][1];
-      let accNo = Object.entries(value[0])[1][1];
-      let Name = Object.entries(value[0])[2][1];
-      let CID = Object.entries(value[0])[3][1];
-      let Service = Object.entries(value[0])[4][1];
-      let Min = Object.entries(value[0])[5][1];
-      let Mean = Object.entries(value[0])[6][1];
-      let Median = Object.entries(value[0])[7][1];
-      let Max = Object.entries(value[0])[8][1];
-      let STD = Object.entries(value[0])[9][1];
-      let VAR = Object.entries(value[0])[10][1];
-      let Count = Object.entries(value[0])[11][1];
-      const accountData = [primaryKey, accNo, CID, Max, Mean, Median, Min, Name, STD, Service, VAR, Count]
+      let accNo = Object.entries(value[0])[0][1];         // 0
+      let Name = Object.entries(value[0])[7][1];          // 2
+      let CID = Object.entries(value[0])[1][1];           // 1
+      let Service = Object.entries(value[0])[3][1];       // 3
+      let Min = Object.entries(value[0])[9][1];           // 9
+      let Mean = Object.entries(value[0])[6][1];          // 6
+      let Median = Object.entries(value[0])[10][1];       // 10
+      let Max = Object.entries(value[0])[8][1];           // 8
+      let STD = Object.entries(value[0])[12][1];          // 12
+      let VAR = Object.entries(value[0])[11][1];          // 11
+      let Count = Object.entries(value[0])[7][1];         // 7
+      const accountData = [accNo, CID, Max, Mean, Median, Min, Name, STD, Service, VAR, Count]
       console.log(accountData)
       sendResponse({ response: accountData });
     }
@@ -78,9 +78,6 @@ function handleMessage(request, sender, sendResponse) {
   return true;
 
 }
-
-
-
 
 chrome.runtime.onMessage.addListener(handleMessage);
 

@@ -51,16 +51,16 @@ function handleResponse(message) {
     let serviceField = document.querySelector("#Service > input")
 
 
-    let accountData = recievedData[1]
-    let cidData = recievedData[2]
-    let minData = recievedData[6]
-    let meanData = recievedData[4]
-    let medianData = recievedData[5]
-    let maxData = recievedData[3]
-    let stdData = recievedData[8]
-    let varData = recievedData[10]
-    let countData = recievedData[11]
-    let servicedata = recievedData[9]
+    let accountData = recievedData[0]
+    let cidData = recievedData[1]
+    let minData = recievedData[5]
+    let meanData = recievedData[3]
+    let medianData = recievedData[4]
+    let maxData = recievedData[2]
+    let stdData = recievedData[7]
+    let varData = recievedData[9]
+    let countData = recievedData[6]
+    let servicedata = recievedData[8]
 
     accountField.value = accountData
     cidField.value = cidData
@@ -74,10 +74,20 @@ function handleResponse(message) {
     serviceField.value = servicedata
     console.log(accountField.value)
 
-    /*     const actualUsage = document.querySelector("#w_694 > input")
-        if ( actualUsage.value > meanData) {
-          alert("POSSIBLE HIGH USUAGE")
-        } */
+    const actualUsage = document.querySelectorAll("input")[30].value
+    const testValue3 = (meanData+(stdField.value*3))
+    const testValue2 = (meanData+(stdField.value*2))
+    console.log(actualUsage, testValue2, testValue3)
+    var notLight = document.getElementsByClassName("notification-light");
+    if (testValue2 < actualUsage < testValue3) {
+      notLight[0].style.animation = "blinkyellow 1s infinite";
+    };
+    if (actualUsage > testValue3) {
+      notLight[0].style.animation = "blinkRed 1s infinite";
+    };
+    if (actualUsage < testValue2) {
+      notLight[0].style.animation = "blinkGreen 0.5s infinite";
+    }
   }
 }
 
@@ -87,18 +97,31 @@ function handleError(error) {
 
 // could be #w_123 or #w_659
 function notifyBackgroundPage(e) {
-  if (document.querySelector("#w_659 > input") == null) {
+  if (document.querySelectorAll("input")[1].value == null) {
     console.log("Empty Field")
   };
-  if (document.querySelector("#w_659 > input") !== null) {
-    let accNo = document.querySelector("#w_659 > input").value
-    let cidNo = document.querySelector("#w_663 > input").value
-    console.log(cidNo)
-    const accDetails = [accNo, cidNo]
+  if (document.querySelectorAll("input")[1].value !== null) {
+    let accNo = document.querySelectorAll("input")[1].value
+    let cidNo = document.querySelectorAll("input")[2].value
+    let serCo = document.querySelectorAll("input")[4].value
+    const accDetails = [accNo, cidNo, serCo]
+    console.log(accDetails)
     const send = chrome.runtime.sendMessage({ greeting: accDetails });
     send.then(handleResponse, handleError)
   };
 }
 
-let inputChange = document.querySelector("#w_659 > input")
-inputChange.addEventListener("change", notifyBackgroundPage);
+document.addEventListener("click", initNotify);
+
+function initNotify() {
+setTimeout(function() {
+  notifyBackgroundPage();
+}, 350);
+};
+
+window.addEventListener('keydown', (event => {
+  console.log(event);
+  if(event.key === 'Control' || event.key === 'Enter') {
+    notifyBackgroundPage();
+  }
+}))
