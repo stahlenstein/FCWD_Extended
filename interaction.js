@@ -4,40 +4,81 @@ var myElement = document.createElement("div");
 
 // Setting up main HTML injection
 myElement.className = "tylerContainer";
-myElement.innerHTML = `<span class="titleText">Statistics</span>
+myElement.innerHTML = `
+<span class="titleText">Statistics</span>
 <table class="TylerTable">
-<tbody>
-  <tr>
-    <td>Account #</td>
-    <td id="Account"><input readonly="" class="InputBox disabled" id="TylerInput" style="width: 85px;"></td>
-    <td>Customer #</td>
-    <td id="CID"><input readonly="" class="InputBox disabled" id="TylerInput" style="width: 85px;"></td>
-  </tr>
-  <tr>
-    <td>Minimum</td>
-    <td id="Min"><input readonly="" class="InputBox disabled" id="TylerInput"></td>
-    <td>Variance</td>
-    <td id="Var"><input readonly="" class="InputBox disabled" id="TylerInput"></td>
-  </tr>
-  <tr>
-    <td>Mean</td>
-    <td id="Mean"><input readonly="" class="InputBox disabled" id="TylerInput"></td>
-    <td>Std Dev</td>
-    <td id="Std"><input readonly="" class="InputBox disabled" id="TylerInput"></td>
-  </tr>
-  <tr>
-    <td>Median</td>
-    <td id="Median"><input readonly="" class="InputBox disabled" id="TylerInput"></td>
-    <td>Service</td>
-    <td id="Service"><input readonly="" class="InputBox disabled" id="TylerInput"></td>
-  </tr>
-  <tr>
-    <td>Maximum</td>
-    <td id="Max"><input readonly="" class="InputBox disabled" id="TylerInput"></td>
-    <td>Count</td>
-    <td id="Count"><input readonly="" class="InputBox disabled" id="TylerInput"></td>
-  </tr>
-</tbody>
+  <tbody>
+    <tr>
+      <td>Account #</td>
+      <td id="Account">
+        <input readonly="" class="InputBox disabled" id="TylerInput" style="width: 85px;">
+      </td>
+      <td>Customer #</td>
+      <td id="CID">
+        <input readonly="" class="InputBox disabled" id="TylerInput" style="width: 85px;">
+      </td>
+      <td>Special Conditions</td>
+      <td id="checkbox">
+        <input readonly="" class="InputBox disabled" id="SPcheckbox">
+      </td>
+      <td>Special Conditions:</td>
+      <td id="checkbox">
+        <input readonly="" class="InputBox disabled" id="checkboxText">
+      </td>
+    </tr>
+    <tr>
+      <td>Minimum</td>
+      <td id="Min">
+        <input readonly="" class="InputBox disabled" id="TylerInput">
+      </td>
+      <td>Variance</td>
+      <td id="Var">
+        <input readonly="" class="InputBox disabled" id="TylerInput">
+      </td>
+      <td>Dead Head</td>
+      <td id="checkbox">
+        <input readonly="" class="InputBox disabled" id="DHcheckbox">
+      </td>
+    </tr>
+    <tr>
+      <td>Mean</td>
+      <td id="Mean">
+        <input readonly="" class="InputBox disabled" id="TylerInput">
+      </td>
+      <td>Std Dev</td>
+      <td id="Std">
+        <input readonly="" class="InputBox disabled" id="TylerInput">
+      </td>
+      <td>Manual Read</td>
+      <td id="checkbox">
+        <input readonly="" class="InputBox disabled" id="MRcheckbox">
+      </td>
+    </tr>
+    <tr>
+      <td>Median</td>
+      <td id="Median">
+        <input readonly="" class="InputBox disabled" id="TylerInput">
+      </td>
+      <td>Service</td>
+      <td id="Service">
+        <input readonly="" class="InputBox disabled" id="TylerInput">
+      </td>
+      <td>HU Reread Completed</td>
+      <td id="checkbox">
+        <input readonly="" class="InputBox disabled" id="HUcheckbox">
+      </td>
+    </tr>
+    <tr>
+      <td>Maximum</td>
+      <td id="Max">
+        <input readonly="" class="InputBox disabled" id="TylerInput">
+      </td>
+      <td>Count</td>
+      <td id="Count">
+        <input readonly="" class="InputBox disabled" id="TylerInput">
+      </td>
+    </tr>
+  </tbody>
 </table>
 `;
 

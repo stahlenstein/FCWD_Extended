@@ -126,6 +126,43 @@ table.TylerTable tbody td {
     rgb(179 179 179 / 10%) 0 2px 10px;
 }
 
+#SPcheckbox {
+  width: 17px;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
+#DHcheckbox {
+  width: 17px;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
+#MRcheckbox {
+  width: 17px;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
+#HUcheckbox {
+  width: 17px;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
+#checkboxText {
+  position: fixed;
+  width: 170px;
+  height: 0px;
+  top:290px;
+  text-align: left;
+  padding-bottom: 50px;
+}
+
 @keyframes blinkRed {
   from {
       background-color: #f00;

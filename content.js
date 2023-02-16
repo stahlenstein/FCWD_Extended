@@ -38,6 +38,16 @@ function addJavaScript(filename) {
 function handleResponse(message) {
   // console.log(`Message from the background script: ${message.response}`)
   const recievedData = message.response;
+  let finalData;
+  finalData = recievedData.map(element => {
+    if(element === null){
+      return ' ';
+    }else{
+     return element 
+    }
+  })
+  console.log(finalData)
+
   if (recievedData !== null) {
     let accountField = document.querySelector("#Account > input")
     let cidField = document.querySelector("#CID > input")
@@ -49,18 +59,27 @@ function handleResponse(message) {
     let maxField = document.querySelector("#Max > input")
     let countField = document.querySelector("#Count > input")
     let serviceField = document.querySelector("#Service > input")
+    let SPCheck = document.querySelector("#SPcheckbox")
+    let DHCheck = document.querySelector("#DHcheckbox")
+    let MRCheck = document.querySelector("#MRcheckbox")
+    let HUCheck = document.querySelector("#HUcheckbox")
+    let SpConText = document.querySelector("#checkboxText")
 
 
-    let accountData = recievedData[0]
-    let cidData = recievedData[1]
-    let minData = recievedData[5]
-    let meanData = recievedData[3]
-    let medianData = recievedData[4]
-    let maxData = recievedData[2]
-    let stdData = recievedData[7]
-    let varData = recievedData[9]
-    let countData = recievedData[6]
-    let servicedata = recievedData[8]
+    let accountData = finalData[0]
+    let cidData =     finalData[1]
+    let minData =     finalData[5]
+    let meanData =    finalData[3]
+    let medianData =  finalData[4]
+    let maxData =     finalData[2]
+    let stdData =     finalData[6]
+    let varData =     finalData[8]
+    let countData =   finalData[9]
+    let servicedata = finalData[7]
+    let HURR =        finalData[12]   
+    let MCon =        finalData[10]
+    let SPCon =       finalData[11]
+
 
     accountField.value = accountData
     cidField.value = cidData
@@ -74,7 +93,46 @@ function handleResponse(message) {
     serviceField.value = servicedata
     console.log(accountField.value)
 
-    const actualUsage = document.querySelectorAll("input")[30].value
+    if(MCon !== 'E'||'R' ) {
+      console.log("No Meter Condition Found")
+      MRCheck.value = ' '
+      DHCheck.value = ' '
+    }
+
+    if(MCon == 'E') {
+      DHCheck.value = "✔"
+      console.log('DH:', DHCheck.value)
+    }
+
+    if(MCon == 'R') {
+      MRCheck.value = "✔"
+      console.log('MR:', MRCheck.value)
+    }
+
+    if(HURR !== ' ') {
+      HUCheck.value = "✔"
+      console.log('HU:', HUCheck.value)
+    }
+
+    if(HURR == ' ') {
+      HUCheck.value = ' '
+    }
+
+    if(SPCon !== ' ') {
+      SPCheck.value = "✔"
+      SpConText.value = SPCon
+      console.log('SPcon text:', SPCon.value)
+    }
+
+    if(SPCon == ' ') {
+      SPCheck.value = ' '
+      SpConText.value = ' '
+    }
+
+
+
+
+    const actualUsage = document.querySelectorAll("input")[35].value
     const testValue3 = (meanData+(stdField.value*3))
     const testValue2 = (meanData+(stdField.value*2))
     console.log(actualUsage, testValue2, testValue3)
@@ -119,9 +177,24 @@ setTimeout(function() {
 }, 350);
 };
 
-window.addEventListener('keydown', (event => {
-  console.log(event);
-  if(event.key === 'Control' || event.key === 'Enter') {
-    notifyBackgroundPage();
+const browser = new MutationObserver(function() {
+  if(document.querySelector("#w_90 > div.mt-toolbar-title > span").innerHTML == 'Browse Current Read/Consumption') {
+  console.log('Browsing...');
+  const wordButton = document.querySelectorAll('div')[162]
+  var Newbutton = document.createElement("div") 
+  Newbutton.innerHTML = `<div class="mt-item gbc_WidgetBase gbc_ToolBarItemWidget gbc_StructuredToolBarItemWidget w_2220 g_measureable gbc_WidgetBase_standalone" role="menuitem" __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="" id="w_2220" tabindex="0" title="Copy to Clipboard" data-gqa-name="word" data-gqa-aui-id="1767">
+  <div class="gbc_imageContainer gbc_autoScale" __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="">
+    <div tabindex="0" __widgetbase="" __imagewidget="" __gbcimagewidget="" id="w_2221" class="gbc_WidgetBase gbc_ImageWidget w_2221 g_measureable gbc_WidgetBase_standalone gbc_autoScale gbc_ImageWidget_higher">
+      <img src="https://floydcountyubgamunisapp.tylerhost.net:443/0783prod/munis/gas/app/ua/ft/5b46627d40fd6e4e58ed4bccf05a7471/fgl-files/57208/Word_Small.png?t=1619555232">
+    </div>
+  </div>
+  <span __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="">Copy to Clipboard</span>
+</div>`
+  wordButton.append(Newbutton) 
   }
-}))
+})
+
+const generalBody = document.querySelector('body')
+const browseConfig = { childList: true };
+
+browser.observe(generalBody, browseConfig)

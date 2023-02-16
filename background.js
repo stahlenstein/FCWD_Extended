@@ -25,9 +25,9 @@ console.log("supabase?", supabase);
 
 async function getData(accountNumber, customerNumber, serviceCode) {
   // Communicating with content scripts
-  let { data: usage_stats, error } = await supabase // Basically stating 'let Reading_Stats = supabase.Reading_Stats...(etc) but more complicated
-    .from("usage_stats") // Declaring what table to select
-    .select("*") // Select all but kinda redundant by '.limit('1')'
+  let { data, error } = await supabase // Basically stating 'let Reading_Stats = supabase.Reading_Stats...(etc) but more complicated
+    .from("main_table_test") // Declaring what table to select
+    .select('*') // Select all but kinda redundant by '.limit('1')'
     .limit("1") // limits called data to only one row/entry
     .eq("ACCOUNT_NO", accountNumber).eq("CID_NO", customerNumber).eq("Service_Code", serviceCode)
 
@@ -37,10 +37,10 @@ async function getData(accountNumber, customerNumber, serviceCode) {
     console.log("There was an Error:", error);
   }
   // Receive Token
-  if (usage_stats) {
-    console.log("Supabase Data Returned:", usage_stats);
+  if (data) {
+    console.log("Supabase Data Returned:", data);
   }
-  return usage_stats
+  return data
 };
 
 function handleMessage(request, sender, sendResponse) {
@@ -53,20 +53,29 @@ function handleMessage(request, sender, sendResponse) {
 
   var accData = getData(accountNumber, customerNumber, serviceCode)
   accData.then(value => {
+    console.log(value)
     value;
     if (value.length !== 0) {
-      let accNo = Object.entries(value[0])[0][1];         // 0
-      let Name = Object.entries(value[0])[7][1];          // 2
-      let CID = Object.entries(value[0])[1][1];           // 1
-      let Service = Object.entries(value[0])[3][1];       // 3
-      let Min = Object.entries(value[0])[9][1];           // 9
-      let Mean = Object.entries(value[0])[6][1];          // 6
-      let Median = Object.entries(value[0])[10][1];       // 10
-      let Max = Object.entries(value[0])[8][1];           // 8
-      let STD = Object.entries(value[0])[12][1];          // 12
-      let VAR = Object.entries(value[0])[11][1];          // 11
-      let Count = Object.entries(value[0])[7][1];         // 7
-      const accountData = [accNo, CID, Max, Mean, Median, Min, Name, STD, Service, VAR, Count]
+      let accNo =   Object.entries(value[0])[1][1];        // 1
+      let CID =     Object.entries(value[0])[2][1];        // 2
+      let Service = Object.entries(value[0])[3][1];       // 
+      let Min =     Object.entries(value[0])[10][1];       // 10
+      let Mean =    Object.entries(value[0])[7][1];        // 7
+      let Median =  Object.entries(value[0])[11][1];        // 12
+      let Max =     Object.entries(value[0])[9][1];        // 9
+      let STD =     Object.entries(value[0])[13][1];       // 
+      let VAR =     Object.entries(value[0])[12][1];       // 
+      let Count =   Object.entries(value[0])[8][1];        // 
+      let MCon =    Object.entries(value[0])[14][1];        // 
+      let SpCon =   Object.entries(value[0])[15][1];       // 15
+      let HURR =    Object.entries(value[0])[16][1];       //16
+      
+      
+      
+
+      let All =    Object.entries(value[0]);      
+      console.log(All)
+      const accountData = [accNo, CID, Max, Mean, Median, Min, STD, Service, VAR, Count, MCon, SpCon, HURR]
       console.log(accountData)
       sendResponse({ response: accountData });
     }
