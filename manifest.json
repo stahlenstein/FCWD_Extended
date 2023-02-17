@@ -13,7 +13,7 @@
     "128": "/images/Munis_Red_128.png"
 },
   "manifest_version": 3,
-  "permissions": ["scripting", "nativeMessaging", "tabs", "notifications"],
+  "permissions": ["scripting", "nativeMessaging", "tabs", "notifications", "clipboardWrite"],
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {
@@ -25,7 +25,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["./*.js", "./supabase.js", "tyler.css", "interaction.js"],
+      "resources": ["./*.js", "./supabase.js", "tyler.css", "interaction.js", "images/*.png"],
       "matches": ["*://*/*"]
     }
   ]

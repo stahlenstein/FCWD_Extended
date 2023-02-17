@@ -48,7 +48,8 @@ function handleResponse(message) {
   })
   console.log(finalData)
 
-  if (recievedData !== null) {
+  if (recievedData[0] !== null) {
+    console.log(recievedData[0])
     let accountField = document.querySelector("#Account > input")
     let cidField = document.querySelector("#CID > input")
     let minField = document.querySelector("#Min > input")
@@ -64,8 +65,10 @@ function handleResponse(message) {
     let MRCheck = document.querySelector("#MRcheckbox")
     let HUCheck = document.querySelector("#HUcheckbox")
     let SpConText = document.querySelector("#checkboxText")
-
-
+    
+    if(accountField == null) {
+      console.log('nothing to add')
+    } else {
     let accountData = finalData[0]
     let cidData =     finalData[1]
     let minData =     finalData[5]
@@ -79,7 +82,7 @@ function handleResponse(message) {
     let HURR =        finalData[12]   
     let MCon =        finalData[10]
     let SPCon =       finalData[11]
-
+    
 
     accountField.value = accountData
     cidField.value = cidData
@@ -92,6 +95,7 @@ function handleResponse(message) {
     countField.value = countData
     serviceField.value = servicedata
     console.log(accountField.value)
+    
 
     if(MCon !== 'E'||'R' ) {
       console.log("No Meter Condition Found")
@@ -147,6 +151,7 @@ function handleResponse(message) {
       notLight[0].style.animation = "blinkGreen 0.5s infinite";
     }
   }
+  }
 }
 
 function handleError(error) {
@@ -177,24 +182,3 @@ setTimeout(function() {
 }, 350);
 };
 
-const browser = new MutationObserver(function() {
-  if(document.querySelector("#w_90 > div.mt-toolbar-title > span").innerHTML == 'Browse Current Read/Consumption') {
-  console.log('Browsing...');
-  const wordButton = document.querySelectorAll('div')[162]
-  var Newbutton = document.createElement("div") 
-  Newbutton.innerHTML = `<div class="mt-item gbc_WidgetBase gbc_ToolBarItemWidget gbc_StructuredToolBarItemWidget w_2220 g_measureable gbc_WidgetBase_standalone" role="menuitem" __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="" id="w_2220" tabindex="0" title="Copy to Clipboard" data-gqa-name="word" data-gqa-aui-id="1767">
-  <div class="gbc_imageContainer gbc_autoScale" __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="">
-    <div tabindex="0" __widgetbase="" __imagewidget="" __gbcimagewidget="" id="w_2221" class="gbc_WidgetBase gbc_ImageWidget w_2221 g_measureable gbc_WidgetBase_standalone gbc_autoScale gbc_ImageWidget_higher">
-      <img src="https://floydcountyubgamunisapp.tylerhost.net:443/0783prod/munis/gas/app/ua/ft/5b46627d40fd6e4e58ed4bccf05a7471/fgl-files/57208/Word_Small.png?t=1619555232">
-    </div>
-  </div>
-  <span __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="">Copy to Clipboard</span>
-</div>`
-  wordButton.append(Newbutton) 
-  }
-})
-
-const generalBody = document.querySelector('body')
-const browseConfig = { childList: true };
-
-browser.observe(generalBody, browseConfig)

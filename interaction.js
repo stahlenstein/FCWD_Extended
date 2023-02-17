@@ -213,3 +213,61 @@ const config1 = { childList: true };
 
 // Start the observer
 observerSubmit.observe(target0, config1);
+
+const browser = new MutationObserver(function () {
+  if (document.querySelectorAll("span")[46].innerText !== 'Browse Current Read/Consumption') {
+    console.log('Not Browsing')
+    return
+  }
+  if (document.querySelectorAll("span")[46].innerText == 'Browse Current Read/Consumption') {
+    console.log('Browsing...');
+    const wordButton = document.querySelectorAll('div')[162]
+    var Newbutton = document.createElement("div")
+    Newbutton.innerHTML = `<div class="mt-item gbc_WidgetBase gbc_ToolBarItemWidget gbc_StructuredToolBarItemWidget g_measureable gbc_WidgetBase_standalone" role="menuitem" __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="" id="w_2220" tabindex="0" title="Copy to Clipboard" data-gqa-name="word" data-gqa-aui-id="1767">
+  <div class="gbc_imageContainer gbc_autoScale" __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="">
+    <div tabindex="0" __widgetbase="" __imagewidget="" __gbcimagewidget="" class="gbc_WidgetBase gbc_ImageWidget g_measureable gbc_WidgetBase_standalone gbc_autoScale gbc_ImageWidget_higher">
+      <img id="tylerImg" src="chrome-extension://nnicpnmdnehfaanmabcmciblljiooemm/images/copy.png">
+    </div>
+  </div>
+  <span __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="">Copy</span>
+</div>`
+
+    wordButton.append(Newbutton);
+    let accCol = document.querySelectorAll("div.gbc_dataContentPlaceholder.containerElement.gbc_staticMeasure")[1]
+    let accNums = accCol.querySelectorAll("span.gbc-label-text-container")
+    const accList = []
+
+    accNums.forEach((item) => {
+      accList.push(item.innerHTML)
+      // console.log('item:', item.innerHTML)
+    }
+    );
+    //console.log(accList)
+    let accList_final = accList.join("|")
+    // console.log(accList_final)
+    let copyButton = document.querySelectorAll("div")[170]
+    copyButton.addEventListener("click", writeData)
+    function writeData() {
+      navigator.clipboard.writeText(accList_final).then(
+        () => {
+          console.log("Write Success")
+        },
+        () => {
+          console.log("Write Failure")
+        }
+      );
+    };
+    if (document.getElementById("tylerImg") == null) {
+
+      // browser.disconnect();
+    }
+
+  }
+});
+
+if (document.getElementById("tylerImg") == null) {
+  const generalBody = document.querySelector('body')
+  const browseConfig = { childList: true };
+
+  browser.observe(generalBody, browseConfig)
+};

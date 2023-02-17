@@ -162,7 +162,68 @@ table.TylerTable tbody td {
   text-align: left;
   padding-bottom: 50px;
 }
+.copybutton {
+-webkit-text-size-adjust: 100%;
+-webkit-font-smoothing: antialiased;
+font-size: 0.875em;
+fill: #212121;
+font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-stretch: normal;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+color: #616161;
+box-sizing: inherit;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 8px;
+flex: 0 0 auto;
+min-width: 56px;
+cursor: pointer;
+border-radius: 0;
+}
 
+.copyButtonImgBox {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  font-size: 0.875em;
+  fill: #212121;
+  font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  color: #616161;
+  cursor: pointer;
+  box-sizing: inherit;
+  width: 20px;
+  height: 16px;
+  display: flex;
+  overflow: visible;
+  justify-content: center;
+}
+
+.copyButtonImg {
+-webkit-text-size-adjust: 100%;
+-webkit-font-smoothing: antialiased;
+font-size: 0.875em;
+fill: #212121;
+font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-stretch: normal;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+color: #616161;
+cursor: pointer;
+box-sizing: inherit;
+position: relative;
+width: 20px;
+height: 16px;
+display: flex;
+overflow: visible;
+justify-content: center;
+} 
 @keyframes blinkRed {
   from {
       background-color: #f00;
