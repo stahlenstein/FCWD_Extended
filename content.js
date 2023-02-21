@@ -99,44 +99,44 @@ function handleResponse(message) {
 
     if(MCon !== 'E'||'R' ) {
       console.log("No Meter Condition Found")
-      MRCheck.value = ' '
-      DHCheck.value = ' '
+      MRCheck.classList.remove("checkbox-mark");
+      DHCheck.classList.remove("checkbox-mark");
     }
 
     if(MCon == 'E') {
-      DHCheck.value = "✔"
+      DHCheck.classList.add("checkbox-mark");
       console.log('DH:', DHCheck.value)
     }
 
     if(MCon == 'R') {
-      MRCheck.value = "✔"
+      MRCheck.classList.add("checkbox-mark");
       console.log('MR:', MRCheck.value)
     }
 
     if(HURR !== ' ') {
-      HUCheck.value = "✔"
+      HUCheck.classList.add("checkbox-mark");
       console.log('HU:', HUCheck.value)
     }
 
     if(HURR == ' ') {
-      HUCheck.value = ' '
+      HUCheck.classList.remove("checkbox-mark");
     }
 
     if(SPCon !== ' ') {
-      SPCheck.value = "✔"
+      SPCheck.classList.add("checkbox-mark");
       SpConText.value = SPCon
       console.log('SPcon text:', SPCon.value)
     }
 
     if(SPCon == ' ') {
-      SPCheck.value = ' '
+      SPCheck.classList.remove("checkbox-mark");
       SpConText.value = ' '
     }
 
 
 
 
-    const actualUsage = document.querySelectorAll("input")[35].value
+    const actualUsage = document.querySelectorAll("input")[31].value
     const testValue3 = (meanData+(stdField.value*3))
     const testValue2 = (meanData+(stdField.value*2))
     console.log(actualUsage, testValue2, testValue3)

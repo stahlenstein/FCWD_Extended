@@ -19,7 +19,7 @@ myElement.innerHTML = `
       </td>
       <td>Special Conditions</td>
       <td id="checkbox">
-        <input readonly="" class="InputBox disabled" id="SPcheckbox">
+        <div id="SPcheckbox"></div>
       </td>
       <td>Special Conditions:</td>
       <td id="checkbox">
@@ -37,7 +37,7 @@ myElement.innerHTML = `
       </td>
       <td>Dead Head</td>
       <td id="checkbox">
-        <input readonly="" class="InputBox disabled" id="DHcheckbox">
+        <div id="DHcheckbox"></div>
       </td>
     </tr>
     <tr>
@@ -51,7 +51,7 @@ myElement.innerHTML = `
       </td>
       <td>Manual Read</td>
       <td id="checkbox">
-        <input readonly="" class="InputBox disabled" id="MRcheckbox">
+        <div id="MRcheckbox"></div>
       </td>
     </tr>
     <tr>
@@ -65,7 +65,7 @@ myElement.innerHTML = `
       </td>
       <td>HU Reread Completed</td>
       <td id="checkbox">
-        <input readonly="" class="InputBox disabled" id="HUcheckbox">
+        <div id="HUcheckbox"></div>
       </td>
     </tr>
     <tr>
@@ -215,15 +215,15 @@ const config1 = { childList: true };
 observerSubmit.observe(target0, config1);
 
 const browser = new MutationObserver(function () {
-  if (document.querySelectorAll("span")[46].innerText !== 'Browse Current Read/Consumption') {
+  if (document.querySelectorAll(".currentDisplayedWindow")[1].innerText !== 'Browse Current Read/Consumption') {
     console.log('Not Browsing')
     return
   }
-  if (document.querySelectorAll("span")[46].innerText == 'Browse Current Read/Consumption') {
+  if (document.querySelectorAll(".currentDisplayedWindow")[1].innerText == 'Browse Current Read/Consumption') {
     console.log('Browsing...');
     const wordButton = document.querySelectorAll('div')[162]
     var Newbutton = document.createElement("div")
-    Newbutton.innerHTML = `<div class="mt-item gbc_WidgetBase gbc_ToolBarItemWidget gbc_StructuredToolBarItemWidget g_measureable gbc_WidgetBase_standalone" role="menuitem" __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="" id="w_2220" tabindex="0" title="Copy to Clipboard" data-gqa-name="word" data-gqa-aui-id="1767">
+    Newbutton.innerHTML = `<div class="mt-item gbc_WidgetBase gbc_ToolBarItemWidget gbc_StructuredToolBarItemWidget g_measureable gbc_WidgetBase_standalone" title="Copy to Clipboard" data-gqa-name="word" data-gqa-aui-id="1767">
   <div class="gbc_imageContainer gbc_autoScale" __widgetbase="" __toolbaritemwidget="" __structuredtoolbaritemwidget="">
     <div tabindex="0" __widgetbase="" __imagewidget="" __gbcimagewidget="" class="gbc_WidgetBase gbc_ImageWidget g_measureable gbc_WidgetBase_standalone gbc_autoScale gbc_ImageWidget_higher">
       <img id="tylerImg" src="chrome-extension://nnicpnmdnehfaanmabcmciblljiooemm/images/copy.png">
@@ -233,37 +233,49 @@ const browser = new MutationObserver(function () {
 </div>`
 
     wordButton.append(Newbutton);
-    let accCol = document.querySelectorAll("div.gbc_dataContentPlaceholder.containerElement.gbc_staticMeasure")[1]
-    let accNums = accCol.querySelectorAll("span.gbc-label-text-container")
-    const accList = []
 
-    accNums.forEach((item) => {
-      accList.push(item.innerHTML)
-      // console.log('item:', item.innerHTML)
-    }
-    );
-    //console.log(accList)
-    let accList_final = accList.join("|")
     // console.log(accList_final)
-    let copyButton = document.querySelectorAll("div")[170]
+    let copyButton = document.querySelectorAll("div")[170];
+
     copyButton.addEventListener("click", writeData)
     function writeData() {
+      // let recordTotal = document.querySelectorAll("span")[775].innerText.split(" ")[2]
+      var accCol = document.querySelectorAll("div.gbc_dataContentPlaceholder.containerElement.gbc_staticMeasure")[1]
+      var accNums = accCol.querySelectorAll("[data-gqa-index]")
+      const accList = []
+      var tableArea = document.querySelectorAll("div.gbc_TableScrollArea")[0]
+      
+      for (let i = 0; i < accNums.length; i++) {
+        accList.push(accNums[i].outerText)
+
+      };
+      var accList_final = accList.join("|")
+      //console.log(accList_final)
+    
+    
+      // var scrollHeight = document.querySelectorAll("div.gbc_TableScrollArea")[0].scrollHeight
+      // var offsetHeight = document.querySelectorAll("div.gbc_TableScrollArea")[0].clientHeight
+      // var tableScroll = offsetHeight - scrollHeight;
+
+      
       navigator.clipboard.writeText(accList_final).then(
         () => {
           console.log("Write Success")
+          console.log(accList_final)
         },
         () => {
           console.log("Write Failure")
         }
       );
     };
-    if (document.getElementById("tylerImg") == null) {
+    if (document.getElementById("tylerImg") !== null) {
 
-      // browser.disconnect();
+      browser.disconnect();
     }
-
+    return
   }
-});
+  }
+);
 
 if (document.getElementById("tylerImg") == null) {
   const generalBody = document.querySelector('body')
