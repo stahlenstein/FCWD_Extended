@@ -257,7 +257,7 @@ const browser = new MutationObserver(function () {
 const tableContainer = document.querySelectorAll("div.gbc_dataContentPlaceholder.containerElement.gbc_staticMeasure")[1];
 
 // Select all the data cell elements
-const dataCells = tableContainer..querySelectorAll("[data-gqa-index]");
+const dataCells = tableContainer.querySelectorAll("[data-gqa-index]");
 
 // Initialize an empty array to store the data
 const data = [];
