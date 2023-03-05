@@ -253,6 +253,49 @@ const browser = new MutationObserver(function () {
       //console.log(accList_final)
     
     
+// Select the table container element
+const tableContainer = document.querySelectorAll("div.gbc_dataContentPlaceholder.containerElement.gbc_staticMeasure")[1];
+
+// Select all the data cell elements
+const dataCells = tableContainer..querySelectorAll("[data-gqa-index]");
+
+// Initialize an empty array to store the data
+const data = [];
+
+// Initialize the current scroll position
+let scrollTop = 0;
+
+// Iterate through each data cell element
+dataCells.forEach((cell) => {
+  // Get the parent row element
+  const row = cell.closest('[role="row"]');
+
+  // If this is the first cell in a new row, initialize a new rowData object
+  if (cell === row.firstElementChild) {
+    var rowData = {};
+  }
+
+  // Add the cell's data to the rowData object
+  rowData[cell.getAttribute('aria-colindex')] = cell.innerText;
+
+  // If this is the last cell in the row, add the rowData object to the data array
+  if (cell === row.lastElementChild) {
+    data.push(rowData);
+  }
+
+  // Get the height of the cell
+  const cellHeight = cell.offsetHeight;
+
+  // Scroll the table container to the next cell
+  scrollTop += cellHeight;
+  tableContainer.scrollTop = scrollTop;
+});
+
+// The data array now contains all the data from the table
+console.log(data);
+
+
+      
       // var scrollHeight = document.querySelectorAll("div.gbc_TableScrollArea")[0].scrollHeight
       // var offsetHeight = document.querySelectorAll("div.gbc_TableScrollArea")[0].clientHeight
       // var tableScroll = offsetHeight - scrollHeight;
