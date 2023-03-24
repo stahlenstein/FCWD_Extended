@@ -1,5 +1,5 @@
 // Variables for HTML injection (could be w_123)
-var target = document.querySelector("#w_141 > div > div > div.containerElement.g_GridLayoutEngine");
+var target = document.querySelector("#w_141");
 var myElement = document.createElement("div");
 
 // Setting up main HTML injection
