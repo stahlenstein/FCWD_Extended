@@ -1,5 +1,5 @@
 // Variables for HTML injection (could be w_123)
-var target = document.querySelector("#w_141");
+var target = document.querySelector("#w_141 > div > div > div.containerElement.g_GridLayoutEngine");
 var myElement = document.createElement("div");
 
 // Setting up main HTML injection
@@ -22,7 +22,7 @@ myElement.innerHTML = `
         <div id="SPcheckbox"></div>
       </td>
       <td>Special Conditions:</td>
-      <td id="checkbox">
+      <td id="checkbox" style="border: none;">
         <input readonly="" class="InputBox disabled" id="checkboxText">
       </td>
     </tr>
@@ -237,80 +237,39 @@ const browser = new MutationObserver(function () {
     // console.log(accList_final)
     let copyButton = document.querySelectorAll("div")[170];
 
-    copyButton.addEventListener("click", writeData)
-    function writeData() {
-      // let recordTotal = document.querySelectorAll("span")[775].innerText.split(" ")[2]
-      var accCol = document.querySelectorAll("div.gbc_dataContentPlaceholder.containerElement.gbc_staticMeasure")[1]
-      var accNums = accCol.querySelectorAll("[data-gqa-index]")
-      const accList = []
-      var tableArea = document.querySelectorAll("div.gbc_TableScrollArea")[0]
-      
-      for (let i = 0; i < accNums.length; i++) {
-        accList.push(accNums[i].outerText)
+    copyButton.addEventListener('click', () => {
+      const protoValue = document.querySelectorAll("span.gbc-label-text-container").length-1
+      const totalValues = document.querySelectorAll("span.gbc-label-text-container")[protoValue].outerText.split(' ', 3)[2];
+      writeData(totalValues);
+    });
 
-      };
-      var accList_final = accList.join("|")
-      //console.log(accList_final)
+    function writeData(totalValues) {
+      const values = [];
+  const labelContainers = document.querySelectorAll('.gbc_WidgetBase .gbc_TableColumnWidget')[4].querySelectorAll(".gbc-label-text-container");
+
+  const scrollInterval = setInterval(() => {
+    // Scroll the element by 600px
+    const scrollArea = document.querySelector('.gbc_TableScrollArea');
+    scrollArea.scrollBy(0, 600);
+
+    // Copy the values to the array
+    labelContainers.forEach(container => {
+      values.push(container.innerText);
+    });
+
+    // Check if we've collected enough values
+    if (values.length >= totalValues) {
+      clearInterval(scrollInterval);
+
+      // Write the values to the clipboard
+      navigator.clipboard.writeText(values.join('|'));
+
+      console.log(values.length)
+    }
+  }, 500);
+}
+
     
-    
-// Select the table container element
-const tableContainer = document.querySelectorAll("div.gbc_dataContentPlaceholder.containerElement.gbc_staticMeasure")[1];
-
-// Select all the data cell elements
-const dataCells = tableContainer.querySelectorAll("[data-gqa-index]");
-
-// Initialize an empty array to store the data
-const data = [];
-
-// Initialize the current scroll position
-let scrollTop = 0;
-
-// Iterate through each data cell element
-dataCells.forEach((cell) => {
-  // Get the parent row element
-  const row = cell.closest('[role="row"]');
-
-  // If this is the first cell in a new row, initialize a new rowData object
-  if (cell === row.firstElementChild) {
-    var rowData = {};
-  }
-
-  // Add the cell's data to the rowData object
-  rowData[cell.getAttribute('aria-colindex')] = cell.innerText;
-
-  // If this is the last cell in the row, add the rowData object to the data array
-  if (cell === row.lastElementChild) {
-    data.push(rowData);
-  }
-
-  // Get the height of the cell
-  const cellHeight = cell.offsetHeight;
-
-  // Scroll the table container to the next cell
-  scrollTop += cellHeight;
-  tableContainer.scrollTop = scrollTop;
-});
-
-// The data array now contains all the data from the table
-console.log(data);
-
-
-      
-      // var scrollHeight = document.querySelectorAll("div.gbc_TableScrollArea")[0].scrollHeight
-      // var offsetHeight = document.querySelectorAll("div.gbc_TableScrollArea")[0].clientHeight
-      // var tableScroll = offsetHeight - scrollHeight;
-
-      
-      navigator.clipboard.writeText(accList_final).then(
-        () => {
-          console.log("Write Success")
-          console.log(accList_final)
-        },
-        () => {
-          console.log("Write Failure")
-        }
-      );
-    };
     if (document.getElementById("tylerImg") !== null) {
 
       browser.disconnect();
